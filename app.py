@@ -21,13 +21,10 @@ def network():
     
     return render_template('network.html', url=url, matrixData=getMatrixData(), stationData=getStationLabels())
 
-@app.route('/run')
-def run():
-    return render_template('run.html')
-
 @app.route('/schedule')
 def schedule():
-    return render_template('schedule.html')
+    url = url_for('static', filename='matrixGraph.png', t=time.time())
+    return render_template('schedule.html', url=url, stationData=getStationLabels())
 
 @app.route('/summary')
 def summary():
@@ -41,3 +38,7 @@ def delays():
         return 'Success'
     url = url_for('static', filename='matrixGraph.png', t=time.time())
     return render_template('delays.html', url=url, matrixData=getMatrixData())
+
+@app.route('/results')
+def results():
+    return render_template('summary.html')
