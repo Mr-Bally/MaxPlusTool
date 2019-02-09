@@ -63,3 +63,12 @@ def removeOldFile():
     if os.path.isfile(strFile):
         os.remove(strFile)
     return
+
+def getRawMatrix():
+    with open("./data/matrixData.json", 'r') as f:
+        rawData = f.read()
+        datastore = json.loads(rawData)
+        f.close()
+    rawMatrix = datastore[2]['matrixInput']
+
+    return rawMatrix

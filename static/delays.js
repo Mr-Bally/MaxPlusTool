@@ -1,11 +1,11 @@
 $( document ).ready(function() {
-    var rawData = $('#matrixData').val();
+    var rawData = $('#rawMatrix').val();
     var matrixData = formatMatrix(rawData);
     $('#currentMatrix').text(matrixData);
 });
 
 function formatMatrix(matrix) {
-    var found = matrix.match(/\[(\d+\s?)+\]/gm);
+    var found = matrix.match(/\[((EPS|\d+)\,?)+\]/gm);
     var final = '';
     $.each(found, function( index, value ) {
         final= final + value.split(/[ ]+/).join(',') +'\n'
@@ -43,8 +43,8 @@ function checkInput(matches) {
 }
 
 function getSizeOfMatrix(){
-    var matrix = $('#matrixData').val();
-    var regex = /\[(\d+\s?)+\]/gm;
+    var matrix = $('#matrixInput').val();
+    var regex = /\[((EPS|\d+)\,?)+\]/gm;
     var matches = matrix.match(regex);
     return matches.length;
 }

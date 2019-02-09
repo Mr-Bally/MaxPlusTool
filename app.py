@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, render_template, url_for
-from graph import getDirectedGraph, getMatrixData, getStationLabels
+from graph import getDirectedGraph, getMatrixData, getStationLabels, getRawMatrix
 import json
 import time
 
@@ -24,7 +24,7 @@ def network():
 @app.route('/schedule')
 def schedule():
     url = url_for('static', filename='matrixGraph.png', t=time.time())
-    return render_template('schedule.html', url=url, stationData=getStationLabels())
+    return render_template('schedule.html', url=url, stationData=getStationLabels(), matrixData=getRawMatrix())
 
 @app.route('/summary')
 def summary():
@@ -37,7 +37,7 @@ def delays():
             json.dump(request.get_json(force=True), outfile)
         return 'Success'
     url = url_for('static', filename='matrixGraph.png', t=time.time())
-    return render_template('delays.html', url=url, matrixData=getMatrixData())
+    return render_template('delays.html', url=url, rawMatrix=getRawMatrix())
 
 @app.route('/results')
 def results():

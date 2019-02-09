@@ -19,7 +19,7 @@ $("#saveButton").click(function () {
     var stationData = getStationNames();
     if (checkInput(matrixInput)) {
         var matrixData = finaliseMatrix(matrixInput)
-        var allData = [{ matrixData }, { stationData }];
+        var allData = [{ matrixData }, { stationData }, { matrixInput }];
         var jsonData = JSON.stringify(allData);
         postJson(jsonData);
     }

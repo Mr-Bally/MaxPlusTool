@@ -72,7 +72,7 @@
                     <tbody id="nameTable">
                     </tbody>
                 </table>
-                <button>Save</button>
+                <button id="saveButton">Save</button>
                 <button id="addRowButton">Add</button>
                 <button id="deleteButton">Delete</button>
             </div>
@@ -82,6 +82,7 @@
                 <img src='{{ url }}' />
             </div>
             <input id="stationData" value='{{ stationData }}' type="hidden">
+            <input id="matrixData" value = '{{ matrixData }}' type="hidden">
         </div>
     </div>
     <script type="text/javascript" src="{{ url_for('static', filename='Jquery.js') }}"></script>
