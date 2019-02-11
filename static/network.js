@@ -115,7 +115,7 @@ function addExistingMatrix(matrix) {
 function addExistingStaionNames(names) {
     var stations = names.match(/\'.+?\'/gm) 
     $.each(stations, function( index, value ) {
-        stations[index]= value.replace(/[']/g, "")
+        stations[index] = value.replace(/[']/g, "")
     });
     for (var i = 0; i < stations.length; i++) {
         $("<tr id='row'" + i + "><td>" + (i+1) + "</td><td><input type='textbox' value='" + stations[i] + "'/></td></tr> ").appendTo("#nameTable");

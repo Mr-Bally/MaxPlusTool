@@ -72,3 +72,11 @@ def getRawMatrix():
     rawMatrix = datastore[2]['matrixInput']
 
     return rawMatrix
+
+def getScheduleData(): 
+    with open("./data/schedule.json", 'r') as f:
+        rawData = f.read()
+        datastore = json.loads(rawData)
+        f.close()
+
+    return datastore
