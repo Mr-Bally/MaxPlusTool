@@ -80,3 +80,16 @@ def getScheduleData():
         f.close()
 
     return datastore
+
+def getDelayMatrix(): 
+    with open("./data/delayMatrix.json", 'r') as f:
+        rawData = f.read()
+        datastore = json.loads(rawData)
+        f.close()
+    dictLength = len(datastore)
+    order = []
+    for x in range(0, dictLength):
+        order.append(str(x))
+
+    npMatrix = np.array([datastore[i] for i in order])
+    return npMatrix

@@ -1,5 +1,5 @@
-from flask import Flask, request, jsonify, render_template, url_for
-from graph import getDirectedGraph, getMatrixData, getStationLabels, getRawMatrix, getScheduleData
+from flask import Flask, request, jsonify, render_template, url_for, redirect
+from dataService import getDirectedGraph, getMatrixData, getStationLabels, getRawMatrix, getScheduleData, getDelayMatrix
 import json
 import time
 
@@ -31,9 +31,13 @@ def schedule():
     url = url_for('static', filename='matrixGraph.png', t=time.time())
     return render_template('schedule.html', url=url, stationData=getStationLabels(), matrixData=getRawMatrix(), scheduleData=getScheduleData())
 
-@app.route('/summary')
+@app.route('/summary', methods=['GET','POST'])
 def summary():
-    return render_template('summary.html')
+    if request.method == "POST":
+        #run program
+        return '/results'
+    url = url_for('static', filename='matrixGraph.png', t=time.time())
+    return render_template('summary.html', url=url, regularMatrix=getMatrixData(), stationData=getStationLabels(), delayMatrix=getDelayMatrix(), scheduleData=getScheduleData())
 
 @app.route('/delays', methods=['GET','POST'])
 def delays():
@@ -46,4 +50,4 @@ def delays():
 
 @app.route('/results')
 def results():
-    return render_template('summary.html')
+    return render_template('results.html')

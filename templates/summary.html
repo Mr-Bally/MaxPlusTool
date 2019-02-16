@@ -6,12 +6,14 @@
     <meta charset="utf-8">
     <title>Max plus</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 
@@ -45,6 +47,10 @@
         <div class="row h-100 justify-content-center align-items-center">
             <p>Check the configuration details before running the program</p>
         </div>
+        <div class="row h-100 justify-content-center align-items-center">
+            <button id="runButton">Run</button>
+        </div>
+    </div>
     </div>
     <div class="container h-100">
         <div class="row">
@@ -68,7 +74,7 @@
                             <td>Station sequence</td>
                         </tr>
                     </thead>
-                    <tbody id="nameTable">
+                    <tbody id="scheduleTable">
                     </tbody>
                 </table>
             </div>
@@ -78,11 +84,17 @@
                 <img src='{{ url }}' />
             </div>
             <input id="stationData" value='{{ stationData }}' type="hidden">
-            <input id="matrixData" value = '{{ matrixData }}' type="hidden">
+            <input id="scheduleData" value='{{ scheduleData }}' type="hidden">
+            <input id="regularMatrix" value='{{ regularMatrix }}' type="hidden">
+            <input id="delayMatrix" value='{{ delayMatrix }}' type="hidden">
+        </div>
+        <div class="col-sm" id="matrixDisplay">
+            <h3>Current matrices</h3>
         </div>
     </div>
+
     <script type="text/javascript" src="{{ url_for('static', filename='Jquery.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='schedule.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='summary.js') }}"></script>
 </body>
 
 </html>
