@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, render_template, url_for, redirect
-from dataService import getDirectedGraph, getMatrixData, getStationLabels, getRawMatrix, getScheduleData, getDelayMatrix
+from dataService import getDirectedGraph, removeOldMatrices, getStationLabels, getMatrixData, getRawMatrix, getScheduleData, getDelayMatrix, getResults, getEpsMatrix
+from maxplus import runMaxPlus
 import json
 import time
 
@@ -16,10 +17,12 @@ def network():
         with open('./data/matrixData.json', 'w') as outfile:
             json.dump(request.get_json(force=True), outfile)
         
+        removeOldMatrices()
         getDirectedGraph()
+
         return url
     
-    return render_template('network.html', url=url, matrixData=getMatrixData(), stationData=getStationLabels())
+    return render_template('network.html', url=url, matrixData=getEpsMatrix(), stationData=getStationLabels())
 
 @app.route('/schedule', methods=['GET','POST'])
 def schedule():
@@ -34,10 +37,10 @@ def schedule():
 @app.route('/summary', methods=['GET','POST'])
 def summary():
     if request.method == "POST":
-        #run program
+        runMaxPlus()
         return '/results'
     url = url_for('static', filename='matrixGraph.png', t=time.time())
-    return render_template('summary.html', url=url, regularMatrix=getMatrixData(), stationData=getStationLabels(), delayMatrix=getDelayMatrix(), scheduleData=getScheduleData())
+    return render_template('summary.html', url=url, regularMatrix=getEpsMatrix(), stationData=getStationLabels(), delayMatrix=getDelayMatrix(), scheduleData=getScheduleData())
 
 @app.route('/delays', methods=['GET','POST'])
 def delays():
@@ -50,4 +53,4 @@ def delays():
 
 @app.route('/results')
 def results():
-    return render_template('results.html')
+    return render_template('results.html', resultsData=getResults())

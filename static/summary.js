@@ -3,10 +3,14 @@ $(document).ready(function () {
     var scheduleData = $('#scheduleData').val();
     var matrixData = $('#regularMatrix').val();
     var delayMatrix = $('#delayMatrix').val();
-    populateStationTable(stationData);
-    populateSchedule(scheduleData);
+    if (stationData !== "{}") {
+        populateStationTable(stationData);
+    }
+    if(scheduleData !== "{}") {
+        populateSchedule(scheduleData);
+    }
     populateMatrix('Regular matrix: ', matrixData);
-    populateMatrix('Delay matrix: ', matrixData);
+    populateDelayMatrix('Delay matrix: ', delayMatrix);
 });
 
 function populateStationTable(stationData) {
@@ -30,6 +34,17 @@ function populateSchedule(scheduleData) {
 }
 
 function populateMatrix(title, matrix) {
+    var res = matrix.replace(/'/g, "\"");
+    var dataArray = JSON.parse(res);
+    var final = '';
+    $.each(dataArray, function( index, value ) {
+        final= final + value +'\n'
+    });
+    $('#matrixInput').val(final);
+    $("<p>" + title + final + "</p>").appendTo("#matrixDisplay");
+}
+
+function populateDelayMatrix(title, matrix) {
     var found = matrix.match(/\[(\d+\s?)+\]/gm);
     var final = '';
     $.each(found, function( index, value ) {

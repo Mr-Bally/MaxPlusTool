@@ -2,7 +2,9 @@ $(document).ready(function () {
     var stationData = $('#stationData').val();
     var scheduleData = $('#scheduleData').val();
     populateStationTable(stationData);
-    populateSchedule(scheduleData);
+    if (scheduleData !== "{}") {
+        populateSchedule(scheduleData);
+    }
     addInputRow();
 });
 

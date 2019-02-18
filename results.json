@@ -1,0 +1,23 @@
+[
+    {
+        "route": [
+            0,
+            1,
+            2
+        ],
+        "startTime": "12:12",
+        "s1Arrival": "12:16",
+        "s1Departure": "12:26",
+        "s2Arrival": "12:32",
+        "s2Departure": "12:42"
+    },
+    {
+        "route": [
+            0,
+            2
+        ],
+        "startTime": "14:12",
+        "s1Arrival": "14:18",
+        "s1Departure": "14:28"
+    }
+]

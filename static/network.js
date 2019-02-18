@@ -18,8 +18,9 @@ $("#saveButton").click(function () {
     var matrixInput = getMatrixInput();
     var stationData = getStationNames();
     if (checkInput(matrixInput)) {
+        var epsMatrix = getMatrixInput();
         var matrixData = finaliseMatrix(matrixInput)
-        var allData = [{ matrixData }, { stationData }, { matrixInput }];
+        var allData = [{ matrixData }, { stationData }, { matrixInput }, { epsMatrix }];
         var jsonData = JSON.stringify(allData);
         postJson(jsonData);
     }
@@ -104,10 +105,11 @@ $( document ).ready(function() {
 });
 
 function addExistingMatrix(matrix) {
-    var found = matrix.match(/\[(\d+\s?)+\]/gm);
+    var res = matrix.replace(/'/g, "\"");
+    var dataArray = JSON.parse(res);
     var final = '';
-    $.each(found, function( index, value ) {
-        final= final + value.split(/[ ]+/).join(',') +'\n'
+    $.each(dataArray, function( index, value ) {
+        final= final + value +'\n'
     });
     $('#matrixInput').val(final);
 }

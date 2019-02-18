@@ -59,7 +59,7 @@ def getStationLabels():
     return stationList
 
 def removeOldFile():
-    strFile = "static/matrixGraph.png"
+    strFile = "./static/matrixGraph.png"
     if os.path.isfile(strFile):
         os.remove(strFile)
     return
@@ -93,3 +93,27 @@ def getDelayMatrix():
 
     npMatrix = np.array([datastore[i] for i in order])
     return npMatrix
+
+def getResults(): 
+    with open("./data/results.json", 'r') as f:
+        rawData = f.read()
+        datastore = json.loads(rawData)
+        f.close()
+
+    return datastore
+
+def removeOldMatrices():
+    with open("./data/results.json", 'w') as r:
+        r.write('{}')
+    with open("./data/schedule.json", 'w') as s:
+        s.write('{}')
+    with open("./data/delayMatrix.json", 'w') as d:
+        d.write('{}')
+
+def getEpsMatrix():     
+    with open("./data/matrixData.json", 'r') as f:
+        rawData = f.read()
+        datastore = json.loads(rawData)
+        f.close()
+    matrixData = datastore[3]['epsMatrix']
+    return matrixData
