@@ -6,12 +6,14 @@
     <meta charset="utf-8">
     <title>Max plus</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 
@@ -43,7 +45,17 @@
             <h1>Schedule</h1>
         </div>
         <div class="row h-100 justify-content-center align-items-center">
-            <p>View or edit the current train schedule</p>
+            <p>This page allows you to input the schedule with by inputing each route and the start time (in the example
+                format). When entering the schedule:
+                <ul>
+                    <li>Please enter the time in the format HH:mm</li>
+                    <li>Enter the stations as a space separated list of the station ID (not the station names)</li>
+                    <li>Click add if you want to add a line to the schedule</li>
+                    <li>To remove simply click the tickbox in on the row and click delete</li>
+                    <li>Click save to persist the schedule to the server</li>
+                    <li>Please make sure that there are no empty rows when you submit</li>
+                </ul>
+            </p>
         </div>
     </div>
     <div class="container h-100">
@@ -72,9 +84,9 @@
                     <tbody id="nameTable">
                     </tbody>
                 </table>
-                <button id="saveButton">Save</button>
-                <button id="addRowButton">Add</button>
-                <button id="deleteButton">Delete</button>
+                <button class="btn btn-dark" id="saveButton">Save</button>
+                <button class="btn btn-dark" id="addRowButton">Add</button>
+                <button class="btn btn-dark" id="deleteButton">Delete</button>
             </div>
         </div>
         <div class="col-sm">
@@ -82,8 +94,8 @@
                 <img src='{{ url }}' />
             </div>
             <input id="stationData" value='{{ stationData }}' type="hidden">
-            <input id="matrixData" value = '{{ matrixData }}' type="hidden">
-            <input id="scheduleData" value = '{{ scheduleData }}' type="hidden">
+            <input id="matrixData" value='{{ matrixData }}' type="hidden">
+            <input id="scheduleData" value='{{ scheduleData }}' type="hidden">
         </div>
     </div>
     <script type="text/javascript" src="{{ url_for('static', filename='Jquery.js') }}"></script>

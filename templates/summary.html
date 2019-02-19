@@ -45,10 +45,12 @@
             <h1>Summary</h1>
         </div>
         <div class="row h-100 justify-content-center align-items-center">
-            <p>Check the configuration details before running the program</p>
+            <p>This pages provides an overview of all the data you have entered into the system. Please review it and
+                ensure it is correct before click the run buton. This will run the algorithm with the provided data and
+                automatically redirect you to the results page</p>
         </div>
         <div class="row h-100 justify-content-center align-items-center">
-            <button id="runButton">Run</button>
+            <button class="btn btn-dark" id="runButton">Run</button>
         </div>
     </div>
     </div>
@@ -79,6 +81,9 @@
                 </table>
             </div>
         </div>
+        <div class="col-sm" id="matrixDisplay">
+                <h3>Current matrices</h3>
+            </div>
         <div class="col-sm">
             <div id="graphDiv">
                 <img src='{{ url }}' />
@@ -87,9 +92,6 @@
             <input id="scheduleData" value='{{ scheduleData }}' type="hidden">
             <input id="regularMatrix" value='{{ regularMatrix }}' type="hidden">
             <input id="delayMatrix" value='{{ delayMatrix }}' type="hidden">
-        </div>
-        <div class="col-sm" id="matrixDisplay">
-            <h3>Current matrices</h3>
         </div>
     </div>
 

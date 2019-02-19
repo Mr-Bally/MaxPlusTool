@@ -6,12 +6,14 @@
     <meta charset="utf-8">
     <title>Max plus</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 
@@ -43,27 +45,36 @@
             <h1>Delays</h1>
         </div>
         <div class="row h-100 justify-content-center align-items-center">
-            <p>View or edit the delay details of the train network</p>
+            <p>This is the page where you define the delays for each part of the networks.</p>
+            <p>This can be altered without modifying the underlying network to mimic the changing traffic depending on
+                the delays on a given day.</p>
+            <p>When entering the delays please make sure that:
+                <ul>
+                    <li>The matrix size matches the size of the underlying network matrix</li>
+                    <li>If EPS is displayed in the network matrix simply put 0 in its place in the matrix</li>
+                    <li>Click save when you have entered the matrix</li>
+                </ul>
+            </p>
         </div>
         <div class="row">
             <div class="col-sm">
-                <div>
-                    <h3>Network matrix</h3>
-                    <p id="currentMatrix" class="display-4"></p>
+                <textarea id="matrixInput" rows="10" cols="30"
+                    placeholder="Please enter your delay matrix here in the form:&#13;&#10;[0,5,3]&#13;&#10;[1,0,2]&#13;&#10;[1,1,0]"></textarea>
+                <div class="col-sm">
+                    <button class="btn btn-dark" id="saveButton">Save</button>
                 </div>
-
+            </div>
+            <div class="col-sm">
+                <div>
+                    <h3>Current network matrix</h3>
+                    <p id="currentMatrix"></p>
+                </div>
             </div>
             <div class="row">
                 <div id="graphDiv">
                     <img src='{{ url }}' />
                 </div>
                 <input id="rawMatrix" value='{{ rawMatrix }}' type="hidden">
-            </div>
-            <div class="col-sm">
-                <textarea id="matrixInput" rows="10" cols="30" placeholder="Please enter your delay matrix here in the form:&#13;&#10;[0,5,3]&#13;&#10;[1,0,2]&#13;&#10;[1,1,0]"></textarea>
-                <div class="col-sm">
-                    <button id="saveButton">Save</button>
-                </div>
             </div>
         </div>
     </div>
