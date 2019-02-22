@@ -86,12 +86,13 @@ def getDelayMatrix():
         rawData = f.read()
         datastore = json.loads(rawData)
         f.close()
-    dictLength = len(datastore)
+    matrixData = datastore[1]['matrixJson']
+    dictLength = len(matrixData)
     order = []
     for x in range(0, dictLength):
         order.append(str(x))
 
-    npMatrix = np.array([datastore[i] for i in order])
+    npMatrix = np.array([matrixData[i] for i in order])
     return npMatrix
 
 def getResults(): 
@@ -117,3 +118,11 @@ def getEpsMatrix():
         f.close()
     matrixData = datastore[3]['epsMatrix']
     return matrixData
+
+def getExpoVal():
+    with open("./data/delayMatrix.json", 'r') as f:
+        rawData = f.read()
+        datastore = json.loads(rawData)
+        f.close()
+    return datastore[0]['expo']
+

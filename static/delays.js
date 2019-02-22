@@ -1,11 +1,10 @@
 $( document ).ready(function() {
-    var rawData = $('#rawMatrix').val();
-    var matrixData = formatMatrix(rawData);
+    var matrixData = formatMatrix($('#rawMatrix').val());
     $('#currentMatrix').text(matrixData);
 });
 
 function formatMatrix(matrix) {
-    var found = matrix.match(/\[((EPS|\d+)\,?)+\]/gm);
+    var found = matrix.match(/\[((EPS|\d+(\.\d+)?)\,?)+\]/gm);
     var final = '';
     $.each(found, function( index, value ) {
         final= final + value.split(/[ ]+/).join(',') +'\n'
@@ -14,10 +13,12 @@ function formatMatrix(matrix) {
 }
 
 $("#saveButton").click(function () {
+    var expo = $("#expoValue option:selected").val();
     var matrixInput = getMatrixInput();
     if (checkInput(matrixInput)) {
-        var jsonData = JSON.stringify(finaliseMatrix(matrixInput));
-        postJson(jsonData);
+        var matrixJson = finaliseMatrix(matrixInput);
+        var jsonData =  [ { expo }, { matrixJson }];
+        postJson(JSON.stringify(jsonData));
     } else {
         window.alert("Please ensure the input matrix is valid and matches the size of the network matrix");
     }
@@ -25,13 +26,13 @@ $("#saveButton").click(function () {
 
 function getMatrixInput() {
     var matrix = $.trim($('#matrixInput').val());
-    var regex = /\[((\d+)\,?)+\]/gm;
+    var regex = /\[((\d+(\.+\d+)?)\,?)+\]/gm;
     return matrix.match(regex);
 }
 
 function checkInput(matches) {
     var rowCount = matches.length;
-    var regex = /(\d+)/gm;
+    var regex = /(\d+(\.\d+)?)/gm;
     var matrixSize = getSizeOfMatrix();
     for (y = 0; y < rowCount; y++) {
         var rowMatches = matches[y].match(regex);
@@ -44,7 +45,7 @@ function checkInput(matches) {
 
 function getSizeOfMatrix(){
     var matrix = $('#matrixInput').val();
-    var regex = /\[((EPS|\d+)\,?)+\]/gm;
+    var regex = /\[((\d+(\.\d+)?)\,?)+\]/gm;
     var matches = matrix.match(regex);
     return matches.length;
 }

@@ -9,8 +9,8 @@ $(document).ready(function () {
     if(scheduleData !== "{}") {
         populateSchedule(scheduleData);
     }
-    populateMatrix('Regular matrix: ', matrixData);
-    populateDelayMatrix('Delay matrix: ', delayMatrix);
+    $("<p>Regular matrix: " + matrixData + "</p>").appendTo("#matrixDisplay");
+    $("<p>Delay matrix: " + delayMatrix + "</p>").appendTo("#matrixDisplay");
 });
 
 function populateStationTable(stationData) {
@@ -41,7 +41,7 @@ function populateMatrix(title, matrix) {
         final= final + value +'\n'
     });
     $('#matrixInput').val(final);
-    $("<p>" + title + final + "</p>").appendTo("#matrixDisplay");
+    
 }
 
 function populateDelayMatrix(title, matrix) {

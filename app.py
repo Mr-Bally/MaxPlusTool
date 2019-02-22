@@ -49,8 +49,8 @@ def delays():
             json.dump(request.get_json(force=True), outfile)
         return 'Success'
     url = url_for('static', filename='matrixGraph.png', t=time.time())
-    return render_template('delays.html', url=url, rawMatrix=getRawMatrix())
+    return render_template('delays.html', url=url, rawMatrix=getRawMatrix(), delayMatrix = getDelayMatrix())
 
 @app.route('/results')
 def results():
-    return render_template('results.html', resultsData=getResults())
+    return render_template('results.html', resultsData=getResults(), stationData=getStationLabels())

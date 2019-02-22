@@ -55,14 +55,22 @@
         <table class="table table-dark">
             <thead>
                 <tr id="tableHeader">
-                    <td>Planned route</td>
-                    <td>Start time</td>
+                    <td>No.</td>
+                    <td>Line</td>
+                    <td>Segm</td>
+                    <td>Orig</td>
+                    <td>Dest</td>
+                    <td>Start</td>
+                    <td>Run</td>
+                    <td>Dwell</td>
+                    <td>Depart</td>
                 </tr>
             </thead>
             <tbody id="resultTable">
             </tbody>
         </table>
         <input id="resultsData" value='{{ resultsData }}' type="hidden">
+        <input id="stationData" value='{{ stationData }}' type="hidden">
     </div>
     <script type="text/javascript" src="{{ url_for('static', filename='Jquery.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='results.js') }}"></script>
