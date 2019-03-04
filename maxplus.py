@@ -15,7 +15,6 @@ def runMaxPlus():
     for x in range(0, len(schedule)):
         scheduleLine.append(runRoute(schedule[x]))
     saveResults(scheduleLine)
-    print(scheduleLine)
 
 def getOrderedSchedule():
     schedule = getScheduleData()
@@ -36,7 +35,6 @@ def runRoute(scheduleLine):
         val = getMatrixItem(x, route)
         time = time + dt.timedelta(minutes=val)
         routeTimes[str(z)] = str(time.time())[0:5]
-        #routeTimes[str(z)] = val
         z+= 1
         max = returnMax(time, stationsLastExited[x+1])
         stationsLastExited[x+1] = max + getStationOffSet()
@@ -78,12 +76,14 @@ def setDelayMatrix():
 
 def getMatrixItem(x, route):
     if expo == 0:
+        # Return constant from delay matrix
         return matrix.item(route[x], route[x+1])
     else:
-        expX = matrix.item(route[x], route[x+1])
-        lambd = delayMatrix.item(route[x], route[x+1])/60
-        print('Expo stuff')
-        #y = lambd * np.exp(-lambd *expX)
-        y = 1 - np.exp(-lambd *expX)
-        print(y)
-        return y
+        # Generate delay using exponential distribution
+        defVal = matrix.item(route[x], route[x+1])
+        lambd = delayMatrix.item(route[x], route[x+1])
+        y = np.exp(lambd)
+        return y + defVal
+
+def getTimeOffset(time1, time2):
+    return time2 - time1
