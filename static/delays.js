@@ -1,4 +1,4 @@
-$( document ).ready(function() {
+$(document).ready(function () {
     var matrixData = formatMatrix($('#rawMatrix').val());
     $('#currentMatrix').text(matrixData);
 });
@@ -6,8 +6,8 @@ $( document ).ready(function() {
 function formatMatrix(matrix) {
     var found = matrix.match(/\[((EPS|\d+(\.\d+)?)\,?)+\]/gm);
     var final = '';
-    $.each(found, function( index, value ) {
-        final= final + value.split(/[ ]+/).join(',') +'\n'
+    $.each(found, function (index, value) {
+        final = final + value.split(/[ ]+/).join(',') + '\n'
     });
     return final;
 }
@@ -17,7 +17,7 @@ $("#saveButton").click(function () {
     var matrixInput = getMatrixInput();
     if (checkInput(matrixInput)) {
         var matrixJson = finaliseMatrix(matrixInput);
-        var jsonData =  [ { expo }, { matrixJson }];
+        var jsonData = [{ expo }, { matrixJson }];
         postJson(JSON.stringify(jsonData));
     } else {
         window.alert("Please ensure the input matrix is valid and matches the size of the network matrix");
@@ -43,7 +43,7 @@ function checkInput(matches) {
     return true;
 }
 
-function getSizeOfMatrix(){
+function getSizeOfMatrix() {
     var matrix = $('#matrixInput').val();
     var regex = /\[((\d+(\.\d+)?)\,?)+\]/gm;
     var matches = matrix.match(regex);
@@ -55,7 +55,7 @@ function finaliseMatrix(matrixData) {
     final = {};
     for (var x = 0; x < matrixData.length; x++) {
         var newRow = matrixData[x].replace("EPS", "0");
-        final[x]=JSON.parse(newRow);
+        final[x] = JSON.parse(newRow);
     }
     return final;
 }

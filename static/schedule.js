@@ -139,7 +139,7 @@ function checkRouteRow(route, matrix) {
 
 function finaliseInput(input) {
     var data = new Array();
-    for(var x = 0; x < input.length; x++) {
+    for (var x = 0; x < input.length; x++) {
         var index = x.toString();
         data[index] = input[x];
     }
@@ -153,6 +153,6 @@ function populateSchedule(scheduleData) {
         schedule[index] = value.replace(/[']/g, "")
     });
     for (var i = 0; i < schedule.length; i = i + 2) {
-        $("<tr><td><input type='textbox' placeholder='e.g. 14:50' class='timeInput' value='"+ schedule[i] +"'/></td><td><input type='textbox' placeholder='e.g. 2 4 5 1' class='stationInput' value='"+ schedule[i+1] +"'/></td><td><input type='checkbox'></input></td></tr> ").appendTo("#nameTable");
+        $("<tr><td><input type='textbox' placeholder='e.g. 14:50' class='timeInput' value='" + schedule[i] + "'/></td><td><input type='textbox' placeholder='e.g. 2 4 5 1' class='stationInput' value='" + schedule[i + 1] + "'/></td><td><input type='checkbox'></input></td></tr> ").appendTo("#nameTable");
     }
 }

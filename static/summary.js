@@ -6,7 +6,7 @@ $(document).ready(function () {
     if (stationData !== "{}") {
         populateStationTable(stationData);
     }
-    if(scheduleData !== "{}") {
+    if (scheduleData !== "{}") {
         populateSchedule(scheduleData);
     }
     $("<p>Regular matrix: " + matrixData + "</p>").appendTo("#matrixDisplay");
@@ -28,8 +28,8 @@ function populateSchedule(scheduleData) {
     $.each(schedules, function (index, value) {
         schedules[index] = value.replace(/[']/g, "")
     });
-    for (var i = 0; i < schedules.length; i=i+2) {
-        $("<tr><td>" + schedules[i] + "</td><td>" + schedules[i+1] + "</td></tr>").appendTo("#scheduleTable");
+    for (var i = 0; i < schedules.length; i = i + 2) {
+        $("<tr><td>" + schedules[i] + "</td><td>" + schedules[i + 1] + "</td></tr>").appendTo("#scheduleTable");
     }
 }
 
@@ -37,18 +37,18 @@ function populateMatrix(title, matrix) {
     var res = matrix.replace(/'/g, "\"");
     var dataArray = JSON.parse(res);
     var final = '';
-    $.each(dataArray, function( index, value ) {
-        final= final + value +'\n'
+    $.each(dataArray, function (index, value) {
+        final = final + value + '\n'
     });
     $('#matrixInput').val(final);
-    
+
 }
 
 function populateDelayMatrix(title, matrix) {
     var found = matrix.match(/\[(\d+\s?)+\]/gm);
     var final = '';
-    $.each(found, function( index, value ) {
-        final= final + value.split(/[ ]+/).join(',') +'\n'
+    $.each(found, function (index, value) {
+        final = final + value.split(/[ ]+/).join(',') + '\n'
     });
     $("<p>" + title + final + "</p>").appendTo("#matrixDisplay");
 }

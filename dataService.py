@@ -3,6 +3,7 @@ import networkx as nx
 import numpy as np
 import json
 import os
+from PIL import Image
 
 def getDirectedGraph():
     removeOldFile()
@@ -59,9 +60,13 @@ def getStationLabels():
     return stationList
 
 def removeOldFile():
-    strFile = "./static/matrixGraph.png"
-    if os.path.isfile(strFile):
-        os.remove(strFile)
+    image = Image.open('./static/matrixGraph.png')
+    w, h = image.size
+    new_color = (255,255,255)
+    for i in range(w):
+        for j in range(h):
+                image.putpixel( (i,j), new_color)
+    image.save("matrixGraph.png")
     return
 
 def getRawMatrix():
@@ -86,6 +91,8 @@ def getDelayMatrix():
         rawData = f.read()
         datastore = json.loads(rawData)
         f.close()
+    if datastore == {}:
+        return datastore
     matrixData = datastore[1]['matrixJson']
     dictLength = len(matrixData)
     order = []

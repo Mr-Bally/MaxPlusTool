@@ -1,4 +1,4 @@
-$( document ).ready(function() {
+$(document).ready(function () {
     var resultData = $('#resultsData').val();
     populateResults(resultData);
 });
@@ -11,21 +11,21 @@ function populateResults(results) {
         objs.forEach(route => {
             routeNum++;
             var timeIndex = 0;
-            for(var x = 0; x < route.route.length-1; x++) {
+            for (var x = 0; x < route.route.length - 1; x++) {
                 addInputRow();
                 lineNum++;
                 var tableData = $('#resultTable tr:last');
                 var times = Object.values(route.routeTimes);
                 tableData[0].cells[0].innerHTML = lineNum;
                 tableData[0].cells[1].innerHTML = routeNum;
-                tableData[0].cells[2].innerHTML = getLineSegment(route.route[x], route.route[x+1]);
+                tableData[0].cells[2].innerHTML = getLineSegment(route.route[x], route.route[x + 1]);
                 tableData[0].cells[3].innerHTML = getStation(route.route[x]);
-                tableData[0].cells[4].innerHTML = getStation(route.route[x+1]);
+                tableData[0].cells[4].innerHTML = getStation(route.route[x + 1]);
                 tableData[0].cells[5].innerHTML = times[timeIndex];
-                tableData[0].cells[6].innerHTML = times[timeIndex+1];
-                tableData[0].cells[7].innerHTML = getOffset(times[timeIndex+1],times[timeIndex+2]);
-                tableData[0].cells[8].innerHTML = times[timeIndex+2];
-                timeIndex = timeIndex + 2; 
+                tableData[0].cells[6].innerHTML = times[timeIndex + 1];
+                tableData[0].cells[7].innerHTML = getOffset(times[timeIndex + 1], times[timeIndex + 2]);
+                tableData[0].cells[8].innerHTML = times[timeIndex + 2];
+                timeIndex = timeIndex + 2;
             }
         });
     }
@@ -51,7 +51,7 @@ function extractData(data) {
 }
 
 function formatRouteString(route) {
-    return route.toString().replace(/,/g,"-");
+    return route.toString().replace(/,/g, "-");
 }
 
 function addInputRow() {
@@ -77,9 +77,9 @@ function getLineSegment(stationOne, stationTwo) {
 function createMatrix(size) {
     var matrix = [];
     var value = 0;
-    for(var i=0; i < size; i++) {
+    for (var i = 0; i < size; i++) {
         var newArray = []
-        for(var y = 0; y < size; y++) {
+        for (var y = 0; y < size; y++) {
             newArray.push(value);
             value++;
         }

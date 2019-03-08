@@ -1,17 +1,69 @@
+$(document).ready(function () {
+    var matrixData = $('#matrixData').val();
+    addExistingMatrix(matrixData);
+    var stationData = $('#stationData').val();
+    addExistingStaionNames(stationData);
+});
+
+function addExistingMatrix(matrix) {
+    var res = matrix.replace(/'/g, "\"");
+    var dataArray = JSON.parse(res);
+    var final = '';
+    $.each(dataArray, function (index, value) {
+        final = final + value + '\n'
+    });
+    $('#matrixInput').val(final);
+}
+
+function addExistingStaionNames(names) {
+    var stations = names.match(/\'.+?\'/gm)
+    $.each(stations, function (index, value) {
+        stations[index] = value.replace(/[']/g, "")
+    });
+    for (var i = 0; i < stations.length; i++) {
+        $("<tr id='row'" + i + "><td>" + (i + 1) + "</td><td><input type='textbox' value='" + stations[i] + "'/></td></tr> ").appendTo("#nameTable");
+    }
+}
+
 $("#inputMatrix").click(function () {
     var found = getMatrixInput();
-    if (checkInput(found)) {
-        addStations(found.length);
+    if (found !== null && checkInput(found)) {
+        setStationCount(found.length);
     } else {
         window.alert("Please ensure you have entered a valid matrix");
     }
-
 });
 
 function getMatrixInput() {
     var matrix = $.trim($('#matrixInput').val());
-    var regex = /\[((EPS|\d+)\,?)+\]/gm;
+    var regex = /\[((\d+|EPS)\,?)+\]/gm;
     return matrix.match(regex);
+}
+
+function checkInput(matches) {
+    var rowCount = matches.length;
+    for (y = 0; y < rowCount; y++) {
+        var rowMatches = matches[y].match(/(EPS|\d+)/gm);
+        if (rowMatches.length !== rowCount) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function setStationCount(count) {
+    var totalRows = $('#nameTable tr').length;
+    if (count < totalRows) {
+        var toRemove = totalRows - count;
+        for (x = 0; x < toRemove; x++) {
+            var row = $("#nameTable").find("tr").last();
+            row.remove();
+        }
+    } else {
+        for (i = totalRows; i < count; i++) {
+            $("<tr id='row'" + count + "><td>" + (i + 1) + "</td><td><input type='textbox' value='" + (i + 1) + "'/></td></tr> ").appendTo("#nameTable");
+        }
+    }
 }
 
 $("#saveButton").click(function () {
@@ -26,33 +78,6 @@ $("#saveButton").click(function () {
     }
 });
 
-function addStations(count) {
-    var totalRows = $('#nameTable tr').length;
-    if (count < totalRows) {
-        var toRemove = totalRows - count;
-        for (x = (toRemove - 1); x < toRemove; x++) {
-            var row = $("#nameTable").find("tr").last();
-            row.remove();
-        }
-    } else {
-        for (i = totalRows; i < count; i++) {
-            $("<tr id='row'" + count + "><td>" + (i + 1) + "</td><td><input type='textbox' value='" + (i + 1) + "'/></td></tr> ").appendTo("#nameTable");
-        }
-    }
-}
-
-function checkInput(matches) {
-    var rowCount = matches.length;
-    var regex = /(EPS|\d+)/gm;
-    for (y = 0; y < rowCount; y++) {
-        var rowMatches = matches[y].match(regex);
-        if (rowMatches.length !== rowCount) {
-            return false;
-        }
-    }
-    return true;
-}
-
 function getStationNames() {
     var table = $('#nameTable tr');
     var data = new Array;
@@ -60,7 +85,7 @@ function getStationNames() {
     for (var i = 0; i < table.length; i++) {
         var inputVal = table[i].cells[1].firstChild.value;
         if (inputVal === "") {
-            inputVal = (i+1).toString();
+            inputVal = (i + 1).toString();
         }
         data[i] = inputVal;
     }
@@ -88,38 +113,12 @@ function finaliseMatrix(matrixData) {
     final = {};
     for (var x = 0; x < matrixData.length; x++) {
         var newRow = matrixData[x].replace("EPS", "0");
-        final[x]=JSON.parse(newRow);
+        final[x] = JSON.parse(newRow);
     }
     return final;
 }
 
-function displayGraph(url) { 
-    $('#graphDiv').html('<img src='+url+'/>')
-}
-
-$( document ).ready(function() {
-    var matrixData = $('#matrixData').val();
-    addExistingMatrix(matrixData);
-    var stationData = $('#stationData').val();
-    addExistingStaionNames(stationData);
-});
-
-function addExistingMatrix(matrix) {
-    var res = matrix.replace(/'/g, "\"");
-    var dataArray = JSON.parse(res);
-    var final = '';
-    $.each(dataArray, function( index, value ) {
-        final= final + value +'\n'
-    });
-    $('#matrixInput').val(final);
-}
-
-function addExistingStaionNames(names) {
-    var stations = names.match(/\'.+?\'/gm) 
-    $.each(stations, function( index, value ) {
-        stations[index] = value.replace(/[']/g, "")
-    });
-    for (var i = 0; i < stations.length; i++) {
-        $("<tr id='row'" + i + "><td>" + (i+1) + "</td><td><input type='textbox' value='" + stations[i] + "'/></td></tr> ").appendTo("#nameTable");
-    }
+function displayGraph(url) {
+    $('#graphDiv').html('<img src=' + '' + '/>')
+    $('#graphDiv').html('<img src=' + url + '/>')
 }
