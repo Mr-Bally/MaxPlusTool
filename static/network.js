@@ -67,12 +67,11 @@ function setStationCount(count) {
 }
 
 $("#saveButton").click(function () {
-    var matrixInput = getMatrixInput();
+    var epsMatrix = getMatrixInput();
     var stationData = getStationNames();
-    if (checkInput(matrixInput)) {
-        var epsMatrix = getMatrixInput();
-        var matrixData = finaliseMatrix(matrixInput)
-        var allData = [{ matrixData }, { stationData }, { matrixInput }, { epsMatrix }];
+    if (checkInput(epsMatrix)) {
+        var matrixData = finaliseMatrix(epsMatrix)
+        var allData = [{ matrixData }, { stationData }, { epsMatrix }];
         var jsonData = JSON.stringify(allData);
         postJson(jsonData);
     }

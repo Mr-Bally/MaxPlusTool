@@ -16,6 +16,9 @@ def network():
     if request.method == "POST":
         with open('./data/matrixData.json', 'w') as outfile:
             json.dump(request.get_json(force=True), outfile)
+            outfile.close()
+        getDirectedGraph()
+        url = url_for('static', filename='matrixGraph.png', t=time.time())
         return url
     
     return render_template('network.html', url=url, matrixData=getEpsMatrix(), stationData=getStationLabels())

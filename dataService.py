@@ -4,9 +4,9 @@ import numpy as np
 import json
 import os
 from PIL import Image
-import time
 
 def getDirectedGraph():
+    removeOldMatrices()
     removeOldFile()
     generateGraph()
 
@@ -29,14 +29,14 @@ def generateGraph():
     nx.draw_networkx_labels(DG, pos, labels, font_size=8, font_color='b')
     nx.draw_circular(DG, **options)
     plt.tight_layout()
-    plt.savefig('./static/matrixGraph', bbox_inches='tight')
+    plt.savefig('./static/matrixGraph.png', bbox_inches='tight')
     plt.close()
 
 def getMatrixData():
     with open("./data/matrixData.json", 'r') as f:
         rawData = f.read()
-        datastore = json.loads(rawData)
         f.close()
+    datastore = json.loads(rawData)
     matrixData = datastore[0]['matrixData']
     dictLength = len(matrixData)
     order = []
@@ -61,7 +61,7 @@ def getStationLabels():
     return stationList
 
 def removeOldFile():
-    strFile = "./static/matrixGraph.png"	   
+    strFile = "./data/matrixGraph.png"	   
     if os.path.isfile(strFile):	    
         os.remove(strFile)
 
@@ -70,7 +70,7 @@ def getRawMatrix():
         rawData = f.read()
         datastore = json.loads(rawData)
         f.close()
-    rawMatrix = datastore[2]['matrixInput']
+    rawMatrix = datastore[2]['epsMatrix']
 
     return rawMatrix
 
@@ -117,9 +117,11 @@ def removeOldMatrices():
 def getEpsMatrix():     
     with open("./data/matrixData.json", 'r') as f:
         rawData = f.read()
-        datastore = json.loads(rawData)
         f.close()
-    matrixData = datastore[3]['epsMatrix']
+    if rawData == {}:
+        return rawData
+    datastore = json.loads(rawData)
+    matrixData = datastore[2]['epsMatrix']
     return matrixData
 
 def getExpoVal():
