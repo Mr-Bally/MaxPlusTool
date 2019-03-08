@@ -61,7 +61,7 @@ def getStationLabels():
     return stationList
 
 def removeOldFile():
-    strFile = "./data/matrixGraph.png"	   
+    strFile = "./static/matrixGraph.png"	   
     if os.path.isfile(strFile):	    
         os.remove(strFile)
 
