@@ -119,6 +119,5 @@ function finaliseMatrix(matrixData) {
 }
 
 function displayGraph(url) {
-    $('#graphDiv').html('<img src=' + '' + '/>')
     $('#graphDiv').html('<img src=' + url + '/>')
 }

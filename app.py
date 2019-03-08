@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, render_template, url_for, redirect
-from dataService import getDirectedGraph, removeOldMatrices, getStationLabels, getMatrixData, getRawMatrix, getScheduleData, getDelayMatrix, getResults, getEpsMatrix
+from dataService import getDirectedGraph, getStationLabels, getMatrixData, getRawMatrix, getScheduleData, getDelayMatrix, getResults, getEpsMatrix
 from maxplus import runMaxPlus
 import json
 import time
@@ -16,10 +16,6 @@ def network():
     if request.method == "POST":
         with open('./data/matrixData.json', 'w') as outfile:
             json.dump(request.get_json(force=True), outfile)
-        
-        removeOldMatrices()
-        getDirectedGraph()
-
         return url
     
     return render_template('network.html', url=url, matrixData=getEpsMatrix(), stationData=getStationLabels())

@@ -4,6 +4,7 @@ import numpy as np
 import json
 import os
 from PIL import Image
+import time
 
 def getDirectedGraph():
     removeOldFile()
@@ -20,16 +21,16 @@ def generateGraph():
         'width': 3,
     }
     pos = nx.circular_layout(DG)
-    
     labels = getStationLabels()
     i = iter(labels)
     labels = dict(zip(i, i))
-    
+    plt.clf()
     plt.subplot(222)
     nx.draw_networkx_labels(DG, pos, labels, font_size=8, font_color='b')
     nx.draw_circular(DG, **options)
     plt.tight_layout()
-    plt.savefig('./static/matrixGraph.png', bbox_inches='tight')
+    plt.savefig('./static/matrixGraph', bbox_inches='tight')
+    plt.close()
 
 def getMatrixData():
     with open("./data/matrixData.json", 'r') as f:
@@ -60,14 +61,9 @@ def getStationLabels():
     return stationList
 
 def removeOldFile():
-    image = Image.open('./static/matrixGraph.png')
-    w, h = image.size
-    new_color = (255,255,255)
-    for i in range(w):
-        for j in range(h):
-                image.putpixel( (i,j), new_color)
-    image.save("matrixGraph.png")
-    return
+    strFile = "./static/matrixGraph.png"	   
+    if os.path.isfile(strFile):	    
+        os.remove(strFile)
 
 def getRawMatrix():
     with open("./data/matrixData.json", 'r') as f:

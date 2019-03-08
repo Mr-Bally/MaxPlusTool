@@ -1,1 +1,1 @@
-[{"matrixData": {"0": [0, 5, 6], "1": [0, 5, 6], "2": [0, 5, 6]}}, {"stationData": {"0": "ST1", "1": "2", "2": "3"}}, {"matrixInput": ["[EPS,5,6]", "[EPS,5,6]", "[EPS,5,6]"]}, {"epsMatrix": ["[EPS,5,6]", "[EPS,5,6]", "[EPS,5,6]"]}]
+[{"matrixData": {"0": [0, 4], "1": [0, 4]}}, {"stationData": {"0": "ST1", "1": "2"}}, {"matrixInput": ["[EPS,4]", "[EPS,4]"]}, {"epsMatrix": ["[EPS,4]", "[EPS,4]"]}]
