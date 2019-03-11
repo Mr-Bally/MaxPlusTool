@@ -111,7 +111,7 @@ function finaliseMatrix(matrixData) {
     var final = new Array();
     final = {};
     for (var x = 0; x < matrixData.length; x++) {
-        var newRow = matrixData[x].replace("EPS", "0");
+        var newRow = matrixData[x].replace(/EPS/g,'0');
         final[x] = JSON.parse(newRow);
     }
     return final;
