@@ -3,6 +3,7 @@ import datetime as dt
 import numpy as np
 import json
 
+
 def runMaxPlus(matrixData, delayMatrix, scheduleData, expoVal):
     global expo
     expo = expoVal
@@ -16,6 +17,7 @@ def runMaxPlus(matrixData, delayMatrix, scheduleData, expoVal):
         scheduleLine.append(runRoute(schedule[x]))
     saveResults(scheduleLine)
 
+
 def getOrderedSchedule(schedule):
     for x in range(0, len(schedule)):
         split = schedule[x][0].split(":")
@@ -24,43 +26,49 @@ def getOrderedSchedule(schedule):
     sortedArray = sorted(schedule, key=lambda x: (x[0]))
     return sortedArray
 
+
 def runRoute(scheduleLine):
     time = scheduleLine[0]
     route = list(map(int, scheduleLine[1].split()))
     z = 0
     routeTimes = {str(z): str(time.time())[0:5]}
-    z+= 1
+    z += 1
     for x in range(0, len(route)-1):
         val = getMatrixItem(x, route)
         time = time + dt.timedelta(minutes=val)
         routeTimes[str(z)] = str(time.time())[0:5]
-        z+= 1
+        z += 1
         max = returnMax(time, stationsLastExited[x+1])
         stationsLastExited[x+1] = max + getStationOffSet()
         time = stationsLastExited[x+1]
         routeTimes[str(z)] = str(time.time())[0:5]
-        z+= 1
+        z += 1
     allData = {"route": route, "routeTimes": routeTimes}
     return allData
+
 
 def setLastExited():
     global stationsLastExited
     stationsLastExited = []
     for x in range(0, len(matrix)):
-       stationsLastExited.append(dt.datetime(2000, 1, 1, 0, 0))
+        stationsLastExited.append(dt.datetime(2000, 1, 1, 0, 0))
+
 
 def getStationOffSet():
     return dt.timedelta(minutes=10)
+
 
 def returnMax(a, b):
     if a.time() > b.time():
         return a
     return b
 
+
 def saveResults(results):
     with open('./data/results.json', 'w') as outfile:
         data = json.dumps(results, indent=4, default=str)
         outfile.write(data)
+
 
 def setMatrix(matrixData, expo):
     global matrix
@@ -69,9 +77,11 @@ def setMatrix(matrixData, expo):
         if matrix.shape == delayMatrix.shape:
             matrix = np.add(matrix, delayMatrix)
 
+
 def setDelayMatrix(delayMatrixData):
     global delayMatrix
     delayMatrix = delayMatrixData
+
 
 def getMatrixItem(x, route):
     if expo == 0:

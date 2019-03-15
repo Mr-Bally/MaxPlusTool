@@ -5,10 +5,12 @@ import json
 import os
 from PIL import Image
 
+
 def getDirectedGraph():
     removeOldMatrices()
     removeOldFile()
     generateGraph()
+
 
 def generateGraph():
     npMatrix = getMatrixData()
@@ -32,6 +34,7 @@ def generateGraph():
     plt.savefig('./static/matrixGraph.png', bbox_inches='tight')
     plt.close()
 
+
 def getMatrixData():
     with open("./data/matrixData.json", 'r') as f:
         rawData = f.read()
@@ -45,6 +48,7 @@ def getMatrixData():
 
     npMatrix = np.array([matrixData[i] for i in order])
     return npMatrix
+
 
 def getStationLabels():
     with open("./data/matrixData.json", 'r') as f:
@@ -60,10 +64,12 @@ def getStationLabels():
 
     return stationList
 
+
 def removeOldFile():
-    strFile = "./static/matrixGraph.png"	   
-    if os.path.isfile(strFile):	    
+    strFile = "./static/matrixGraph.png"
+    if os.path.isfile(strFile):
         os.remove(strFile)
+
 
 def getRawMatrix():
     with open("./data/matrixData.json", 'r') as f:
@@ -74,7 +80,8 @@ def getRawMatrix():
 
     return rawMatrix
 
-def getScheduleData(): 
+
+def getScheduleData():
     with open("./data/schedule.json", 'r') as f:
         rawData = f.read()
         datastore = json.loads(rawData)
@@ -82,7 +89,8 @@ def getScheduleData():
 
     return datastore
 
-def getDelayMatrix(): 
+
+def getDelayMatrix():
     with open("./data/delayMatrix.json", 'r') as f:
         rawData = f.read()
         datastore = json.loads(rawData)
@@ -98,13 +106,15 @@ def getDelayMatrix():
     npMatrix = np.array([matrixData[i] for i in order])
     return npMatrix
 
-def getResults(): 
+
+def getResults():
     with open("./data/results.json", 'r') as f:
         rawData = f.read()
         datastore = json.loads(rawData)
         f.close()
 
     return datastore
+
 
 def removeOldMatrices():
     with open("./data/results.json", 'w') as r:
@@ -114,7 +124,8 @@ def removeOldMatrices():
     with open("./data/delayMatrix.json", 'w') as d:
         d.write('{}')
 
-def getEpsMatrix():     
+
+def getEpsMatrix():
     with open("./data/matrixData.json", 'r') as f:
         rawData = f.read()
         f.close()
@@ -124,10 +135,10 @@ def getEpsMatrix():
     matrixData = datastore[2]['epsMatrix']
     return matrixData
 
+
 def getExpoVal():
     with open("./data/delayMatrix.json", 'r') as f:
         rawData = f.read()
         datastore = json.loads(rawData)
         f.close()
     return datastore[0]['expo']
-
