@@ -92,8 +92,9 @@ function checkStations(stations) {
 }
 
 function checkStationsExist(stationList) {
+    var result = true
     if (stationList === "") {
-        return false;
+        result = false;
     }
     var stationInts = $.map(stationList.split(' '), function (value) {
         return parseInt(value, 10);
@@ -102,10 +103,10 @@ function checkStationsExist(stationList) {
 
     jQuery.each(stationInts, function (index, value) {
         if (jQuery.inArray(value, stationIds) === -1) {
-            return false;
+            result = false;
         }
     });
-    return true;
+    return result;
 }
 
 function getStationIds() {

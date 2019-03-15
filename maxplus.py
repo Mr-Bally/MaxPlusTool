@@ -1,4 +1,3 @@
-from dataService import getMatrixData, getDelayMatrix, getScheduleData, getExpoVal
 import datetime as dt
 import numpy as np
 import json
@@ -15,7 +14,7 @@ def runMaxPlus(matrixData, delayMatrix, scheduleData, expoVal):
     scheduleLine = []
     for x in range(0, len(schedule)):
         scheduleLine.append(runRoute(schedule[x]))
-    saveResults(scheduleLine)
+    return scheduleLine
 
 
 def getOrderedSchedule(schedule):
@@ -62,12 +61,6 @@ def returnMax(a, b):
     if a.time() > b.time():
         return a
     return b
-
-
-def saveResults(results):
-    with open('./data/results.json', 'w') as outfile:
-        data = json.dumps(results, indent=4, default=str)
-        outfile.write(data)
 
 
 def setMatrix(matrixData, expo):

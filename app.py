@@ -38,8 +38,11 @@ def schedule():
 @app.route('/summary', methods=['GET', 'POST'])
 def summary():
     if request.method == "POST":
-        runMaxPlus(np.array(getMatrixData()), np.array(
+        results = runMaxPlus(np.array(getMatrixData()), np.array(
             getDelayMatrix()), getScheduleData(), int(getExpoVal()))
+        with open('./data/results.json', 'w') as outfile:
+            data = json.dumps(results, indent=4, default=str)
+            outfile.write(data)
         return '/results'
     url = url_for('static', filename='matrixGraph.png', t=time.time())
     return render_template('summary.html', url=url, regularMatrix=getEpsMatrix(), stationData=getStationLabels(), delayMatrix=getDelayMatrix(), scheduleData=getScheduleData())
