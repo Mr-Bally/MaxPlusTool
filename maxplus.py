@@ -3,21 +3,20 @@ import datetime as dt
 import numpy as np
 import json
 
-def runMaxPlus():
+def runMaxPlus(matrixData, delayMatrix, scheduleData, expoVal):
     global expo
-    expo = int(getExpoVal())
-    setDelayMatrix()
-    setMatrix(expo)
+    expo = expoVal
+    setDelayMatrix(delayMatrix)
+    setMatrix(matrixData, expo)
     setLastExited()
 
-    schedule = getOrderedSchedule()
+    schedule = getOrderedSchedule(scheduleData)
     scheduleLine = []
     for x in range(0, len(schedule)):
         scheduleLine.append(runRoute(schedule[x]))
     saveResults(scheduleLine)
 
-def getOrderedSchedule():
-    schedule = getScheduleData()
+def getOrderedSchedule(schedule):
     for x in range(0, len(schedule)):
         split = schedule[x][0].split(":")
         time = dt.datetime(2000, 1, 1, int(split[0]), int(split[1]))
@@ -63,16 +62,16 @@ def saveResults(results):
         data = json.dumps(results, indent=4, default=str)
         outfile.write(data)
 
-def setMatrix(expo):
+def setMatrix(matrixData, expo):
     global matrix
-    matrix = np.array(getMatrixData())
+    matrix = matrixData
     if expo == 0:
         if matrix.shape == delayMatrix.shape:
             matrix = np.add(matrix, delayMatrix)
 
-def setDelayMatrix():
+def setDelayMatrix(delayMatrixData):
     global delayMatrix
-    delayMatrix = np.array(getDelayMatrix())
+    delayMatrix = delayMatrixData
 
 def getMatrixItem(x, route):
     if expo == 0:
@@ -84,6 +83,3 @@ def getMatrixItem(x, route):
         lambd = delayMatrix.item(route[x], route[x+1])
         y = np.exp(lambd)
         return y + defVal
-
-def getTimeOffset(time1, time2):
-    return time2 - time1

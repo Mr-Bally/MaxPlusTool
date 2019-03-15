@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var stationData = $('#stationData').val();
     var scheduleData = $('#scheduleData').val();
-    var matrixData = $('#regularMatrix').val();
+    var matrixData = $('#regularMatrix').val().replace(/\'/gm, "");;
     var delayMatrix = $('#delayMatrix').val();
     if (stationData !== "{}") {
         populateStationTable(stationData);
